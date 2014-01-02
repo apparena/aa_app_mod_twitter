@@ -49,7 +49,7 @@ define([
 
     return {
         init:        Init,
-        view:        Model,
+        model:        Model,
         remove:      Remove,
         namespace:   namespace,
         getInstance: Instance
