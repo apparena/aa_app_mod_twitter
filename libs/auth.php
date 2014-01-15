@@ -33,7 +33,7 @@ try
         $uri  = str_replace('ajax.php', MODULE_PATH . DS . 'libs' . DS . 'auth_callback.php', $_SERVER['REQUEST_URI']);
 
         $reply = $cb->oauth_requestToken(array(
-                'oauth_callback' => 'https://' . $host . $uri . '?i_id=' . $aa['instance']['i_id']
+                'oauth_callback' => 'https://' . $host . $uri . '?i_id=' . $aa->instance->i_id
             )
         );
 
