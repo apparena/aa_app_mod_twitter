@@ -18,5 +18,5 @@ This is a module of the [aa_app_template](https://github.com/apparena/aa_app_tem
 
 ### Load module with require
 ```
-modules/facebook/js/views/FacebookView
+modules/aa_app_mod_twitter/js/views/FacebookView
 ```
