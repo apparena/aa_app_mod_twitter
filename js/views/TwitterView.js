@@ -14,7 +14,7 @@ define([
     'jquery',
     'underscore',
     'backbone',
-    'modules/twitter/js/models/LoginModel'
+    'modules/aa_app_mod_twitter/js/models/LoginModel'
 ], function (View, $, _, Backbone, LoginModel) {
     'use strict';
 
