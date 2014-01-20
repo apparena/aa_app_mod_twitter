@@ -1,6 +1,6 @@
 <?php
 defined('_VALID_CALL') or die('Direct Access is not allowed.');
-define('MODULE_PATH', 'modules' . DS . 'twitter');
+define('MODULE_PATH', 'modules' . DS . 'aa_app_mod_twitter');
 
 require_once ROOT_PATH . DS . MODULE_PATH . DS . 'libs' . DS . 'codebird.php';
 
