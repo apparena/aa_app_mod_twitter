@@ -1,7 +1,7 @@
 <?php
 define('DS', DIRECTORY_SEPARATOR);
 define('ROOT', '..' . DS . '..' . DS . '..' . DS);
-define('MODULE_PATH', 'modules' . DS . 'twitter');
+define('MODULE_PATH', 'modules' . DS . 'aa_app_mod_twitter');
 
 require_once ROOT . 'init.php';
 
