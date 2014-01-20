@@ -126,7 +126,7 @@ define([
                         ',left=' + left;
 
                 this.ajax({
-                    module: 'twitter',
+                    module: 'aa_app_mod_twitter',
                     action: 'auth'
                 }, true, function (resp) {
                     if (resp.data.code === '203') {
