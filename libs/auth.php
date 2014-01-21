@@ -61,7 +61,7 @@ try
         }
         else
         {
-            $return['message'] = $reply->message;
+            $return['message'] = $reply->error;
             $return['code']    = $reply->httpstatus;
         }
     }
