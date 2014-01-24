@@ -177,6 +177,7 @@ define([
                     if (typeof( response.profile_image_url_https ) !== 'undefined' && response.profile_image_url_https.length > 0) {
                         data.avatar = response.profile_image_url_https;
                     }
+                    data.logintime = _.uniqueId();
                     this.model.set(data);
                     this.model.save();
                 } else {
