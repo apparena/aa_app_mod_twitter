@@ -10,7 +10,7 @@ define([
         Model.namespace = 'twitterLogin';
 
         Model.code = Backbone.Model.extend({
-            localStorage: new Backbone.LocalStorage('AppArenaAdventskalenderApp_' + _.aa.instance.i_id + '_TwLoginData'),
+            localStorage: new Backbone.LocalStorage('aa_app_mod_twitter_' + _.aa.instance.i_id + '_TwLoginData'),
 
             defaults: {
                 'id':          1,
@@ -21,7 +21,8 @@ define([
                 'lastname':    '',
                 'city':        '',
                 'avatar':      '',
-                'login_type':  'twuser'
+                'login_type':  'twuser',
+                'logintime':   ''
             }
         });
 
