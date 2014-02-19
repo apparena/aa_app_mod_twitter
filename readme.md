@@ -1,4 +1,4 @@
-# App-Arena.com App Module: Facebook
+# App-Arena.com App Module: Twitter
 Github: https://github.com/apparena/aa_app_mod_twitter
 
 Docs:   http://www.app-arena.com/docs/display/developer
