@@ -28,5 +28,4 @@ define([
 
         return Model;
     }
-})
-;
+});

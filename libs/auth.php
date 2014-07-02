@@ -26,16 +26,19 @@ try
         unset($_SESSION['twitter']);
     }
 
+    // we need this for callback
+    $session['tw_consumer_key']    = __c('tw_consumer_key');
+    $session['tw_consumer_secret'] = __c('tw_consumer_secret');
+
     if (!isset($session['oauth_token2']))
     {
         // get the request token
         $host = $_SERVER['HTTP_HOST'];
-        $uri  = str_replace('ajax.php', MODULE_PATH . DS . 'libs' . DS . 'auth_callback.php', $_SERVER['REQUEST_URI']);
+        $uri  = str_replace('ajax', MODULE_PATH . '/libs/auth_callback.php', $_SERVER['REQUEST_URI']);
 
         $reply = $cb->oauth_requestToken(array(
-                'oauth_callback' => 'https://' . $host . $uri . '?i_id=' . $aa->instance->i_id
-            )
-        );
+            'oauth_callback' => 'https://' . $host . $uri . '?i_id=' . \Apparena\App::$i_id
+        ));
 
         if ($reply->httpstatus !== 401)
         {
@@ -57,11 +60,14 @@ try
                 $return['debug_session'] = $session;
             }
 
-            $_SESSION['twitter'] = $session;
+            //$_SESSION['twitter'] = $session;
+            $session['tw_consumer_key_config']    = __c('tw_consumer_key');
+            $session['tw_consumer_secret_config'] = __c('tw_consumer_secret');
+            setcookie('aa_twitter_auth_' . \Apparena\App::$i_id, serialize($session), 0, '/', $_SERVER['HTTP_HOST'], isset($_SERVER["HTTPS"]), true);
         }
         else
         {
-            $return['message'] = $reply->error;
+            $return['message'] = $reply->message;
             $return['code']    = $reply->httpstatus;
         }
     }

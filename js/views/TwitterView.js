@@ -28,14 +28,27 @@ define([
 
             tweetUrl: 'https://twitter.com/intent/tweet',
 
-            events: {},
+            authResponse: null,
+
+            events: {
+                'click .twconnect': 'login'
+            },
 
             initialize: function () {
-                _.bindAll(this, 'libInit', 'share', 'follow', 'addClickEventListener', 'login', 'getUserData');
+                _.bindAll(this, 'libInit', 'share', 'follow', 'login', 'getUserData');
+
+                var that = this;
 
                 // we must store the require config value into the global scope for build process
                 this.twitter = 'twitter';
                 this.model = LoginModel().init();
+
+                this.ajax({
+                    module: 'aa_app_mod_twitter',
+                    action: 'auth'
+                }, true, function (resp) {
+                    that.authResponse = resp;
+                });
             },
 
             libInit: function () {
@@ -51,6 +64,7 @@ define([
                         });
                     });
                 });
+
                 return this;
             },
 
@@ -63,10 +77,10 @@ define([
                 //text = elem.attr('data-text') || document.title,
                     text = share_infos.title + ' - ' + share_infos.desc,
                     via = elem.attr('data-via') || '',
-                    related = encodeURIComponent(elem.attr('data-related')) || '',
-                //hashtags = encodeURIComponent(elem.attr('data-hashtag')) || '',
+                    related = encodeURIComponent(elem.data('related')) || '',
+                //hashtags = encodeURIComponent(elem.data('hashtag')) || '',
                     hashtags = '',
-                    lang = elem.attr('data-lang') || 'en',
+                    lang = elem.data('lang') || 'en',
                     width = 575,
                     height = 400,
                     left = ($(window).width() - width) / 2,
@@ -103,19 +117,8 @@ define([
                 });
             },
 
-            addClickEventListener: function () {
-                // add click event listener on FB login buttons
-                var that = this,
-                    connect = $('.twconnect');
-                connect.off('click');
-                connect.on('click', function () {
-                    that.login();
-                });
-            },
-
             login: function () {
-                var that = this,
-                    width = 575,
+                var width = 575,
                     height = 400,
                     left = ($(window).width() - width) / 2,
                     top = ($(window).height() - height) / 2,
@@ -125,16 +128,13 @@ define([
                         ',top=' + top +
                         ',left=' + left;
 
-                this.ajax({
-                    module: 'aa_app_mod_twitter',
-                    action: 'auth'
-                }, true, function (resp) {
-                    if (resp.data.code === '203') {
-                        that.twitter_window = window.open(resp.data.call, 'twitter_auth', opts);
-                    } else {
-                        _.debug.warn('twitter login response error', resp);
-                    }
-                });
+                _.twitterReturn = this;
+
+                if (this.authResponse !== null && this.authResponse.data.code === '203') {
+                    this.twitter_window = window.open(this.authResponse.data.call, 'twitter_auth', opts);
+                } else {
+                    _.debug.warn('twitter login response error', this.authResponse !== null);
+                }
 
                 return this;
             },
@@ -189,5 +189,5 @@ define([
         });
 
         return View;
-    }
+    };
 });
